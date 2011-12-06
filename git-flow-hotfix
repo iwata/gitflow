@@ -325,7 +325,7 @@ cmd_finish() {
 		git push "$ORIGIN" "$MASTER_BRANCH" || \
 			die "Could not push to $MASTER_BRANCH from $ORIGIN."
 		if noflag notag; then
-			git push --tags "$ORIGIN" || \
+			git push "$ORIGIN" "$VERSION_PREFIX$VERSION" || \
 				die "Could not push tags to $ORIGIN."
 		fi
 	fi
