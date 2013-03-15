@@ -259,7 +259,11 @@ cmd_start() {
     echo ""
     echo "Now, start committing on your feature. When done, use:"
     echo ""
-    echo "     git flow feature finish $NAME"
+      if flag remote; then
+        echo "     git flow feature finish -R '$VERSION'"
+      else
+        echo "     git flow feature finish '$VERSION'"
+      fi
     echo
 }
 
