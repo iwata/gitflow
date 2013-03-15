@@ -1,4 +1,4 @@
-git-flow2
+git-flow-remote
 ========
 A collection of Git extensions to provide high-level repository operations
 for Vincent Driessen's [branching model](http://nvie.com/git-model "original blog post").
@@ -25,14 +25,14 @@ If you're on a Mac and use [homebrew](http://github.com/mxcl/homebrew), it's sim
 
 ```sh
 brew tap iwata/alt
-brew install git-flow2
+brew install git-flow-remote
 ```
 
 #### --zsh-completion option
 For zsh user:
 
 ```sh
-brew install git-flow2 --zsh-completion
+brew install git-flow-remote --zsh-completion
 ```
 
 ### Linux, etc.
