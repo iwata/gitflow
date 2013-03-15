@@ -222,7 +222,11 @@ cmd_start() {
     echo "- Start committing last-minute fixes in preparing your release"
     echo "- When done, run:"
     echo
-    echo "     git flow release finish '$VERSION'"
+      if flag remote; then
+        echo "     git flow release finish -R '$VERSION'"
+      else
+        echo "     git flow release finish '$VERSION'"
+      fi
     echo
 }
 
@@ -248,11 +252,14 @@ cmd_finish() {
     require_branch "$BRANCH"
     require_clean_working_tree
     if flag fetch; then
+        git fetch -q "$ORIGIN" "$BRANCH" || \
+            die "Could not fetch $MASTER_BRANCH from $ORIGIN."
         git fetch -q "$ORIGIN" "$MASTER_BRANCH" || \
             die "Could not fetch $MASTER_BRANCH from $ORIGIN."
         git fetch -q "$ORIGIN" "$DEVELOP_BRANCH" || \
             die "Could not fetch $DEVELOP_BRANCH from $ORIGIN."
     elif flag pull || flag remote; then
+        git_pull_quiet "$BRANCH"
         git_pull_quiet "$MASTER_BRANCH"
         git_pull_quiet "$DEVELOP_BRANCH"
     fi
@@ -335,6 +342,7 @@ cmd_finish() {
     if flag fetch; then
         echo "- Latest objects have been fetched from '$ORIGIN'"
     elif flag pull || flag remote; then
+        echo "- Latest objects have been pulled from '$ORIGIN' to '$BRANCH'"
         echo "- Latest objects have been pulled from '$ORIGIN' to '$MASTER_BRANCH'"
         echo "- Latest objects have been pulled from '$ORIGIN' to '$DEVELOP_BRANCH'"
     fi
